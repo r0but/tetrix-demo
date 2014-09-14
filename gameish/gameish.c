@@ -124,7 +124,7 @@ task main(){
       continue;
     }
   	
-  	// This group determines turning
+    // This group determines turning
     if (leftStick < lowDeadzone){
       turnLeft(leftStick);
     }
