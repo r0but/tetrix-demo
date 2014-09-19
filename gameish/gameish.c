@@ -1,10 +1,15 @@
-// This is RobotC code. Despite the extension, trying to compile with a C compiler
-// will throw errors.
+// Copyright 2014 Josh Trahan. Licensed under the MIT License.
+// For more information, visit github.com/r0but/tetrix-demo
 
-// The main task is at the bottom. Most of the motor controlling stuff is in functions.
+/*
+This is RobotC code. Despite the extension, trying to compile with a C 
+compiler will give errors.
 
-// I HAVEN'T TESTED THIS CODE YET. It's probably broken and will remain so until I
-// get a chance to test it on a Tetrix bot and fix whatever errors pop up.
+The main task is at the bottom. Most of the motor controlling stuff is
+in functions. The main loop is in the function mainLoop().
+
+I HAVEN'T TESTED THIS CODE YET. It's probably broken and will likely remain so 
+until I get a chance to test it on a Tetrix bot and fix whatever errors pop up.
 
 /****************************************************
 *                                                   *
@@ -15,31 +20,34 @@
 
 #include "JoystickDriver.h"
 
+// Deadzones for the control sticks
 const int lowDeadzone = -5;
 const int highDeadzone = 5;
+
+// Max speed that the motors can EVER spin for the duration of the program.
+// The actual speed itself is NOT constant.
 const int maxSpeed = 100;
 const int maxReverseSpeed = -100;
+
+// Current speed for the motors to spin (determined in the main loop)
 int speed;
 
 void initializeRobot(){
-  // Motors are not reversed. If your motors are running backwards, just flip
-  // the corresponding motor to true.
+  // Motors are not reversed by default. If your motor(s) are running backwards, 
+  // just change the corresponding motor to true OR tick "reversed" checkbox 
+  // for it in motor and sensor setup.
   bMotorReflected[rightMotor] = false;
   bMotorReflected[leftMotor] = false;
 }
 
-void turnLeft(int magnitude){
-  // To satisfy my OCD and make things even.
-  // Maximum value that the stick returns is 127 while min is -128
-  if (magnitude == -128) { magnitude = -127 ; }
-  
+void turnLeft(int magnitude){  
   // normalizes magnitude to a 1-100 value, then makes it so a higher value 
   // makes the motor run slower
   if (speed > 0){
-    magnitude = maxSpeed - (magnitude * (speed / 127));
+    magnitude = maxSpeed - (magnitude * (speed / 128));
   }
   else{
-    magnitude = maxReverseSpeed - (magnitude * (speed / 127));
+    magnitude = maxReverseSpeed - (magnitude * (speed / 128));
   }
   
   motor[rightMotor] = speed;
@@ -75,9 +83,13 @@ void spinRight(){
 }
 
 void setSpeedFromJoystick(int magnitude){
-  if (magnitude == -128) { magnitude = 127; }
-  
-  speed = magnitude * (maxSpeed / 127);
+  // Max negative value from the stick is -128, while max positive is 127.
+  if (magnitude < 0){
+    speed = magnitude * (maxSpeed / 128);
+  }
+  else{
+    speed = magnitude * (maxSpeed / 127);
+  }
 }
 
 void stopRobot(){
@@ -85,17 +97,14 @@ void stopRobot(){
   motor[leftMotor] = 0;
 }
 
-task main(){
-  initializeRobot();
-  waitForStart();
-
+void mainLoop(){
   int leftStick = 0;
   int rightStick = 0;
-  
+
   while(1){
     wait1Msec(20);
   	
-    // Spins the robot in a circle (L2 spins counter-clockwise, R2 spins clockwise)
+    // Spins the robot in a circle (L2 spins counter-clockwise, R2 clockwise)
     if (joy1Btn(7)){
       spinLeft();
       continue;
@@ -132,7 +141,13 @@ task main(){
       turnRight(leftStick);
     }
     else{
-	  goStraight();
+      goStraight();
     }
   }
+}
+
+task main(){
+  initializeRobot();
+  waitForStart();
+  mainLoop();
 }
