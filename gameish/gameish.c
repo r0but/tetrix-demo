@@ -2,8 +2,17 @@
 // For more information, visit github.com/r0but/tetrix-demo and read LICENSE.
 
 /*
+This code is meant to allow a user to control a simple Tetrix bot like they're
+playing a driving video game. It is written for a simple Tetrix robot with two 
+motors: one controlling the left wheel, and one controlling the right wheel. 
+On my test bots, there is an omniwheel in the front-middle just to keep the whole
+thing from falling over.
+
 This is RobotC code. Despite the extension, trying to compile with a C 
-compiler will give errors.
+compiler will give errors. It is written for the LEGO NXT platform, but if you 
+want to try it on VEX or something give it a shot. I have no opportunity to use 
+a platform other than NXT and Arduino, and I don't use RobotC for my Arduino 
+projects, so I cannot provide any kind of support for anything but NXT.
 
 The main task is at the bottom. Most of the motor controlling stuff is
 in functions. The main loop is in the function mainLoop().
@@ -14,7 +23,7 @@ until I get a chance to test it on a Tetrix bot and fix whatever errors pop up.
 /****************************************************
 *                                                   *
 *    IMPORTANT: IN ROBOT CONFIG, NAME THE MOTORS    *
-*       leftMotor AND rightMotor ACCORDINGLY        *
+*       leftMotor AND rightMotor ACCORDINGLY.       *
 *                                                   *
 ****************************************************/
 
