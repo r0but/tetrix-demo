@@ -1,5 +1,5 @@
-// Copyright 2014 Josh Trahan. Licensed under the MIT License.
-// For more information, visit github.com/r0but/tetrix-demo
+// Copyright (c) 2014 Josh Trahan. Licensed under the MIT License.
+// For more information, visit github.com/r0but/tetrix-demo and read LICENSE.
 
 /*
 This is RobotC code. Despite the extension, trying to compile with a C 
