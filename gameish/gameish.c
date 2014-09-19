@@ -1,4 +1,4 @@
-// Copyright (c) 2014 Josh Trahan. Licensed under the MIT License.
+// Copyright (c) 2014 Joshua Trahan. Licensed under the MIT License.
 // For more information, visit github.com/r0but/tetrix-demo and read LICENSE.
 
 /*
