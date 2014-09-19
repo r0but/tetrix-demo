@@ -101,7 +101,7 @@ void mainLoop(){
   int leftStick = 0;
   int rightStick = 0;
 
-  while(1){
+  while(true){
     wait1Msec(20);
   	
     // Spins the robot in a circle (L2 spins counter-clockwise, R2 clockwise)
