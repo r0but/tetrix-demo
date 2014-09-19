@@ -134,7 +134,7 @@ void mainLoop(){
     else if (joy1Btn(6)){
       speed = maxSpeed;
     }
-    else if (joy1Btn(5){
+    else if (joy1Btn(5)){
       speed = maxReverseSpeed;
     }
     else{
