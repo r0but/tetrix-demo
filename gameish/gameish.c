@@ -32,8 +32,13 @@ projects, so I cannot provide any kind of support for anything but NXT.
 The main task is at the bottom. Most of the motor controlling stuff is
 in functions. The main loop is in the function mainLoop().
 
-I HAVEN'T TESTED THIS CODE YET. It's probably broken and will likely remain so
-until I get a chance to test it on a Tetrix bot and fix whatever errors pop up.
+I've only had a brief chance to test this code. It is definitely not perfect,
+and I'm not very happy with how the controls feel yet. I plan to work more
+on it when I get a chance.
+
+Main stuff I need to do: Fix the speed variable to not be global, use a separate
+function to get control stick values, abstract each chunk of if statements
+in the main loop into their own functions.
 
 /****************************************************
 *                                                   *
@@ -65,9 +70,12 @@ void initializeRobot(){
 }
 
 void turnLeft(int magnitude){
+  // since left stick is being pointed left, the value it's returning is
+  // negative. I'm correcting this for the math in the next statement.
+  magnitude *= -1;
+  
   // normalizes magnitude to a 1-100 value, then makes it so a higher value
   // makes the motor run slower
-	magnitude *= -1;
   magnitude = speed - (magnitude * (speed / 128.0));
 
   motor[rightMotor] = speed;
@@ -117,7 +125,7 @@ void mainLoop(){
   int rightStick = 0;
 
   while(true){
-	  getJoystickSettings(joystick);
+    getJoystickSettings(joystick);
     wait1Msec(40);
 
     // Spins the robot in a circle (L2 spins counter-clockwise, R2 clockwise)
